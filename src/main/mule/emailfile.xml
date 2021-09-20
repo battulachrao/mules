@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:tls="http://www.mulesoft.org/schema/mule/tls"
+	xmlns:email="http://www.mulesoft.org/schema/mule/email" xmlns:file="http://www.mulesoft.org/schema/mule/file"
+	xmlns:http="http://www.mulesoft.org/schema/mule/http"
+	xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="
+http://www.mulesoft.org/schema/mule/tls http://www.mulesoft.org/schema/mule/tls/current/mule-tls.xsd http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd
+http://www.mulesoft.org/schema/mule/file http://www.mulesoft.org/schema/mule/file/current/mule-file.xsd
+http://www.mulesoft.org/schema/mule/email http://www.mulesoft.org/schema/mule/email/current/mule-email.xsd">
+	<http:listener-config name="HTTP_Listener_config" doc:name="HTTP Listener config" doc:id="13823a6f-4f0c-4cde-81c0-8ea5c7188a4b" >
+		<http:listener-connection host="0.0.0.0" port="8081" />
+	</http:listener-config>
+	<email:pop3-config name="Email_POP3" doc:name="Email POP3" doc:id="93afb1f3-c065-4f4c-ba9b-60402814539c" >
+		<email:pop3-connection host="pop.gmail.com" port="995" user="battulachrao@gmail.com" password="Bchandu@2001" >
+			<email:properties >
+				<email:property key="mail.pop3.ssl.enable" value="true" />
+			</email:properties>
+		</email:pop3-connection>
+	</email:pop3-config>
+	<flow name="emailfileFlow" doc:id="3110fec5-8323-4a81-aab1-afbcd5625c0c" >
+		<http:listener doc:name="Listener" doc:id="10a417c7-1581-4a59-ae9a-e88b34cbf00b" config-ref="HTTP_Listener_config" path="/git"/>
+		<set-payload value='#["git"]' doc:name="Set Payload" doc:id="50133768-8dde-4837-b3dc-cc97adfae782" />
+	</flow>
+</mule>
